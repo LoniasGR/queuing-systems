@@ -1,5 +1,5 @@
 clc;
-clear;
+clear all;
 close all;
 pkg load statistics
 
@@ -123,18 +123,16 @@ hold off;
 k = 0:0.00001:8;
 lambda_frac = [0.5, 1, 3];
 
-[~, columns] = size(lambda_frac);
-exponential = cell(columns,1);
-for i = 1:columns
-  exponential{i,1} = exppdf(k, lambda_frac(i));
-end
+for i = 1:columns(lambda_frac)
+  exponential(i,:) = exppdf(k, lambda_frac(i));
+endfor
 
 colors = 'rbkm';
 figure(4);
 hold on;
 
-for i=1:columns
-  plot(k, exponential{i,1}, colors(i), 'linewidth', 1.2);
+for i=1:columns(lambda_frac)
+  plot(k, exponential(i,:), colors(i), 'linewidth', 1.2);
 end
 
 hold off;
@@ -146,18 +144,16 @@ legend('1/\lambda = 0.5','1/\lambda = 1','1/\lambda = 3');
 
 % Step B
 
-exp_cdf = cell(columns, 1);
-for i=1:columns
-      exp_cdf{i,1} = expcdf(k, lambda_frac(i));
-
-end
+for i=1:columns(lambda_frac)
+      exp_cdf(i,:) = expcdf(k, lambda_frac(i));
+endfor
 
 figure(5);
 hold on;
 
-for i=1:columns
-  plot(k, exp_cdf{i,1}, colors(i), 'linewidth', 1.2);
-end
+for i=1:columns(lambda_frac)
+  plot(k, exp_cdf(i,:), colors(i), 'linewidth', 1.2);
+endfor
 
 hold off;
 
@@ -170,18 +166,16 @@ legend('1/\lambda = 0.5','1/\lambda = 1','1/\lambda = 3');
 
 lambda_frac_2 = 2.5;
 
-[~, columns] = size(lambda_frac_2);
-exponential_cdf_2 = cell(columns,1);
 
-for i = 1:columns
-  exponential_cdf_2{i,1} = expcdf(k, lambda_frac(i));
-end
+for i = 1:columns(lambda_frac_2);
+  exponential_cdf_2(i,:) = expcdf(k, lambda_frac_2);
+endfor
 
 disp('The value of P(x > 30000) is');
-disp(1 - exponential_cdf_2{1,1}(30000));
+disp(1 - exponential_cdf_2(1,30000));
 
 disp('The value of P(x > 50000 | x > 20000) is');
-disp((1-exponential_cdf_2{1,1}(50000))/(1-exponential_cdf_2{1,1}(20000)));
+disp((1-exponential_cdf_2(1,50000))/(1-exponential_cdf_2(1,20000)));
 
 % Step D
 
