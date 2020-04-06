@@ -1,0 +1,151 @@
+\documentclass{article}
+
+    % Input language encoding
+    \usepackage[utf8]{inputenc}
+   
+    % Output languages
+    \usepackage[english, greek]{babel}
+    \usepackage{alphabeta}
+    
+    % Fonts
+    \usepackage[T1,LGR]{fontenc}
+    \usepackage{lmodern}
+
+    % Images
+    \usepackage{graphicx}
+    \usepackage{float}
+    \usepackage{caption}
+    \usepackage{subcaption}
+    
+    % Add animated images
+    \usepackage{animate}
+
+    % Frames
+    \usepackage{framed}
+
+    % Math
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+
+    % Paragraph Formatting
+    \usepackage{parskip}
+
+    % Code
+    \usepackage{listings}
+    \usepackage{fancyvrb}
+
+    % Different Enumerations
+    \usepackage{enumitem}
+
+    % Trees
+    \usepackage{qtree}
+
+    % Other Drawings
+    \usepackage{tikz}
+    \usetikzlibrary{shapes,backgrounds}
+
+    % Links
+    \usepackage{hyperref}
+
+    % Color
+    \usepackage{color}
+   
+    % Setup
+
+    % For hyperlinks
+    \hypersetup{
+        colorlinks=true,
+        linkcolor=blue,
+        filecolor=magenta,      
+        urlcolor=cyan,
+    }
+
+    \urlstyle{same}
+    
+    % For code
+    \definecolor{codegreen}{rgb}{0,0.6,0}
+    \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+    \definecolor{codepurple}{rgb}{0.58,0,0.82}
+    \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+     
+    \lstdefinestyle{mystyle}{
+        backgroundcolor=\color{backcolour},   
+        commentstyle=\color{codegreen},
+        keywordstyle=\color{magenta},
+        numberstyle=\tiny\color{codegray},
+        stringstyle=\color{codepurple},
+        basicstyle=\fontsize{8}{11}\selectfont\ttfamily,
+        breakatwhitespace=false,         
+        breaklines=true,                 
+        captionpos=b,                    
+        keepspaces=true,                 
+        numbers=left,                    
+        numbersep=5pt,                  
+        showspaces=false,                
+        showstringspaces=false,
+        showtabs=false,                  
+        tabsize=4
+    }
+
+    \lstset{style=mystyle}
+
+
+    % For math
+    \DeclareMathSizes{10}{10}{10}{10}
+    \setlength{\parindent}{0cm}
+
+    % Foreign Language macro
+    \newcommand{\english}[1]{\foreignlanguage{english}{{#1}}}
+
+    % Images folder
+    \graphicspath{ {./plots/} }
+
+
+    \title{Συστήματα Αναμονής \\
+    1ή Ομάδα Ασκήσεων}
+
+\begin{document}
+
+\pagenumbering{gobble}
+\date{}
+\author{Λεωνίδας Αβδελάς $|$ ΑΜ: 03113182}
+
+\maketitle
+
+\section*{Κατανομή \english{Poisson}}
+
+\subsection*{Α)}
+
+Παρακάτω στο Σχήμα \ref{fig:poissonA}, φαίνεται η ΣΜΜ της κατανομής \english{Poisson} για $λ = {3, 10, 50}$ και τιμές από $0$ μέχρι και $70$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{poissonA.jpg}
+    \caption{Κατανομή \english{Poisson} με παραμέτρους $λ = {3, 10, 50}$}
+    \label{fig:poissonA}
+\end{figure}
+
+Όπως βλέπουμε, η διαφορά μεταξύ των τριών ΣΜΜ, είναι ότι το κέντρο τους μετατοπίζεται ανάλογα με την παράμετρο λ (αφού αυτή είναι η μέση τιμή) και αφού και η διασπορά είναι λ, το εύρος της καμπύλης αυξάνεται όσο αυξάνουμε το λ.
+
+\subsection*{Β)}
+
+Οι τιμές που υπολογίζουμε για την μέση τιμή και την διακύμανση είναι $30$, γεγονός που το περιμέναμε, αφού στην κατανομή Poisson η μέση τιμή και η διακύμανση ισούνται με $30$.
+
+\subsection*{Γ)}
+
+Η υπέρθεση των κατανομών φαίνεται παρακάτω στο Σχήμα \ref{fig:poisson_conv}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{poisson_conv.jpg}
+    \caption{Κατανομή \english{Poisson} με παραμέτρους λ = ${3, 10, 50}$}
+    \label{fig:poisson_conv}
+\end{figure}
+
+
+Η κατανομή που προέκυψε είναι και αυτή \english{Poisson} με $λ = 60$, δηλαδή η συνέλιξη των κατανομών \english{Poisson} με $λ = 50$ και $λ = 10$ μας οδήγησε σε μια κατανομή \english{Poisson} με $λ = 60$. H απαραίτητη προϋπόθεση για να συμβεί αυτό, είναι να είναι και οι δύο κατανομές \english{Poisson}.
+
+\subsection*{Δ)}
+
+
+\end{document}
