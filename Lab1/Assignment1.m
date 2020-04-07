@@ -177,40 +177,10 @@ disp(1 - exponential_cdf_2(1,30000));
 disp('The value of P(x > 50000 | x > 20000) is');
 disp((1-exponential_cdf_2(1,50000))/(1-exponential_cdf_2(1,20000)));
 
-% Step D
-
-mu1 = 2;
-mu2 = 1;
-samples = 5000;
-
-X1 = exprnd(mu1, 1, samples);
-X2 = exprnd(mu2, 1, samples);
-
-Y = min(X1, X2);
-
-disp('The mean of Y is');
-disp(mean(Y));
-
-maximum_observation = max(Y);
-number_of_classes = 50;
-width_of_class = maximum_observation / number_of_classes;
-
-[NN, XX] = hist(Y, number_of_classes);
-
-NN_without_free_variables = NN/width_of_class/samples;
-
-figure(6);
-hold on;
-bar(XX, NN_without_free_variables);
-plot(XX, NN_without_free_variables, 'r', 'linewidth', 1.3);
-
-xlabel('classes');
-ylabel('frequency');
-hold off;
-
-%% Poisson Distribution
+%% Poisson counting process
 
 % Part A
+
 lambda = 5;
 samples = 100;
 
@@ -220,45 +190,50 @@ N_t = exprnd(1/lambda, 1, samples);
 % started counting until the i-th event happened.
 for i = 2:length(N_t)
     N_t(1,i) = N_t(1,i) + N_t(1,i-1);
-end
+endfor
 
-figure(7);
+figure(6);
 stairs(N_t);
 xlabel('Events');
 ylabel('Time (s)');
 
 % Part B
 
+% We calculate the number of events happening for every second of the process
+% and then we average them out.
+
+sample_b = [100, 200, 300, 500, 1000, 10000];
+N_t_2 = cell(6,1);
 time_frame = 1.0;
-events_per_sec = 0;
-for i = 1:length(N_t)
-    if N_t(1,i) <= time_frame
-        events_per_sec(uint8(time_frame)) = ...
-            events_per_sec(uint8(time_frame)) + 1;
-    else
-        time_frame = time_frame + 1.0;
-        events_per_sec(uint8(time_frame)) = 1;
-    end
-end
 
-disp('Average number of events per sec');
-disp(mean(events_per_sec));
+for j = 1:columns(sample_b)
+  N_t_2{j,1} = exprnd(1/lambda, 1, sample_b(j));
 
-% Part C
-
-time_49 = 0;
-time_50 = 0;
-for i = 1:1:100
-    N_t = exprnd(1/lambda, 1, samples);
-    time_49 = time_49 + N_t(1, 50);
-    time_50 = time_50 + N_t(1, 51);
-end
-
-disp('Average time between 49th and 50th event');
-disp(time_49/100);
-
-disp('Average time between 50th and 51st event');
-disp(time_50/100);
+  % Each element of the new matrix is the time we waited from the moment we 
+  % started counting until the i-th event happened.
+  for i = 2:length(N_t_2{j,1})
+      N_t_2{j,1}(i) = N_t_2{j,1}(i) + N_t_2{j,1}(i-1);
+  endfor
+endfor
 
 
+for j = 1:columns(sample_b)
+  
+  events_per_sec = [1];
+  time_frame = 1.0;
 
+  for i = 1:length(N_t_2{j,1})
+      if N_t_2{j,1}(i) <= time_frame
+          events_per_sec(uint8(time_frame)) = ...
+              events_per_sec(uint8(time_frame)) + 1;
+      else
+          time_frame = time_frame + 1.0;
+          events_per_sec = [events_per_sec 1];
+      end
+  end
+  
+  disp('Number of samples');
+  disp(sample_b(j));
+  disp('Average number of events per sec');
+  disp(mean(events_per_sec));
+endfor

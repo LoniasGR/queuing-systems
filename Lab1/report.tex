@@ -6,6 +6,7 @@
     % Output languages
     \usepackage[english, greek]{babel}
     \usepackage{alphabeta}
+    \usepackage{csquotes}
     
     % Fonts
     \usepackage[T1,LGR]{fontenc}
@@ -16,6 +17,9 @@
     \usepackage{float}
     \usepackage{caption}
     \usepackage{subcaption}
+
+    % Bibliography 
+    \usepackage{biblatex}
     
     % Add animated images
     \usepackage{animate}
@@ -100,6 +104,10 @@
     % Images folder
     \graphicspath{ {./plots/} }
 
+    % Bibliography source
+    \addbibresource{report.bib}
+
+
 
     \title{Συστήματα Αναμονής \\
     1ή Ομάδα Ασκήσεων}
@@ -165,7 +173,7 @@
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{expnential.png}
+    \includegraphics[width=\textwidth]{exponential.png}
     \caption{Εκθετικές κατανομές με $\frac{1}{λ} = {0.5, 1, 3}$}
     \label{fig:exponential}
 \end{figure}
@@ -176,20 +184,74 @@
 
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{expnential_cdf.png}
-    \caption{Εκθετικές κατανομές με $\frac{1}{λ} = {0.5, 1, 3}$}
-    \label{fig:exponential}
+    \includegraphics[width=\textwidth]{exponential_cdf.png}
+    \caption{ΣΚΠ κατανομών με $\frac{1}{λ} = {0.5, 1, 3}$}
+    \label{fig:exponential_cdf}
 \end{figure}
 
 \subsection*{Γ)}
 
-Για να υπολογίσουμε το $\Pr{(x > 30000)}$, χρησιμοποιούμε τον τύπο $\Pr{(x > 3000)} = 1 –   \Pr{(x \leq 30000)}$. 
+Για να υπολογίσουμε το $\Pr{(x > 30000)}$, χρησιμοποιούμε τον τύπο \\
+$\Pr{(x > 30000)} = 1 - \Pr{(x \leq 30000)}$. 
 
 Για να υπολογίσουμε το $\Pr{(x > 50000 | x > 20000)}$ έχουμε σύμφωνα με τον τύπο της δεσμευμένης πιθανότητας:
 
-\begin{equation*}
-    \Pr{(x > 50000 | x > 20000)} = \frac{\Pr{(x > 50000 \cap x > 20000)}}{\Pr{(x > 20000)}} = \frac{\Pr{(x > 50000)}}{1 - \Pr{(x \leq 20000)}} = \frac{1 - \Pr{(x \leq 50000)}}{1 - \Pr(x \leq 20000)}
-\end{equation*}
+\begin{align*}
+    & \Pr{(x > 50000 | x > 20000)} = \\
+    & \frac{\Pr{(x > 50000 \cap x > 20000)}}{\Pr{(x > 20000)}} = \\
+    & \frac{\Pr{(x > 50000)}}{1 - \Pr{(x \leq 20000)}} = \\
+    & \frac{1 - \Pr{(x \leq 50000)}}{1 - \Pr(x \leq 20000)}
+\end{align*}
+
+Παρατηρούμε ότι οι δύο πιθανότητες είναι και οι δύο ίσες με $0.88692$. Αυτό συμβαίνει λόγω την ιδιότητα έλλειψης μνήμης που έχει η εκθετική κατανομή \cite{exponential_distribution}. Πιο συγκεκριμένα σύμφωνα με τον τύπο της εκθετικής κατανομής, από την προτελευταία ισότητα της εξίσωσης μας και δεδομένου ότι η σκπ της εκθετικής είναι $e^{-λt}$, έχουμε $\frac{e^{-50000λ}}{e^{-20000λ}} = e^{{-20000λ}}$.
+
+\section*{Διαδικασία καταμέτρησης \english{Poisson}}
+
+\subsection*{Α)}
+
+Γνωρίζουμε ότι η χρονική διαφορά που μεσολαβεί ανάμεσα στην εμφάνιση δύο διαδοχικών γεγονότων \english{Poisson} ακολουθούν την εκθετική κατανομή με μέσο όρο $\frac{1}{λ}$ \cite{stackexchange}. 
+
+Ακολουθώντας τα βήματα, υπολογίσαμε τα χρόνο μεταξύ 100 βημάτων και μετά υπολογίσαμε την καταμέτρηση \english{Poisson}. Τελικά καταλήξαμε στην γραφική παράσταση του Σχήματος \ref{fig:poisson_counting}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{poisson_counting.jpg}
+    \caption{Διαδικασία καταμέτρησης \english{Poisson}}
+    \label{fig:poisson_counting}
+\end{figure}
+
+
+\subsection*{B)}
+
+Γνωρίζουμε ότι σε μια ομογενή καταμέτρηση \english{Poisson}, ο αριθμός γεγονότων σε ένα χρονικό παράθυρο $ΔT = t_1 - t_2$ ακολουθεί κατανομή \english{Poisson} με μέση τιμή $E[N(t)] = λt$ \cite{exponential_and_poisson_proc}.
+
+Ο μέσος αριθμός γεγονότων στην μονάδα χρόνου (1 \english{second}) που αναμένουμε είναι $5$, αφού $λ = 5$ και $t = 1$. Οι τιμές που παίρνουμε φαίνονται στον παρακάτω πίνακα:
+
+\begin{center}
+    \begin{tabular}{ |c|c| } 
+     \hline
+     Πλήθος τυχαίων γεγονότων & Μέσος αριθμός γεγονότων ανα δευτερόλεπτο  \\ 
+     \hline
+     100 & 4.8095  \\ 
+     \hline
+     200 & 4.9024  \\ 
+     \hline
+     300 & 4.9344  \\ 
+     \hline
+     500 & 4.7714  \\
+     1000 & 4.9554  \\ 
+     \hline
+     10000 & 4.9290  \\  
+     \hline
+    \end{tabular}
+\end{center}
+
+\begin{otherlanguage}{english}
+    \printbibliography
+
+
+\section*{Source Code}
+\lstinputlisting[language=Octave]{Assignment1.m}
+\end{otherlanguage}
 
 \end{document}
-Παρατηρούμε ότι οι δύο πιθανότητες είναι και οι δύο ίσες με $0.88692$. Αυτό συμβαίνει λόγω την ιδιότητα έλλειψης μνήμης που έχει η εκθετική κατανομή. Πιο συγκεκριμένα σύμφωνα με τον τύπο της εκθετικής κατανομής, από την προτελευταία ισότητα της εξίσωσης μας και δεδομένου ότι η σκπ της εκθετικής είναι $e^{-λt}$, έχουμε $\frac{e^{-50000λ}}{e^{-20000λ}} = e^{{-20000λ}}$.
