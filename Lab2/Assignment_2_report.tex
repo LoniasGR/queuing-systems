@@ -17,9 +17,23 @@
 % Drawing diagrams
 \usepackage{tikz}
 
-% Matlab code highlighting
+% Octave code highlighting
 \usepackage{listings}
+
+% Links
+\usepackage{hyperref}
+
 %% Options
+
+% For hyperlinks
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
+
+\urlstyle{same}
 
 % Colors
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -195,7 +209,7 @@
 \begin{equation} \label{eq:12}
 	\begin{split}
 		\sum_{n=0}^{\infty}{ρ^n} = \sum_{n=1}^{\infty}{ρ^n} + 1 = \frac{1}{1-ρ}\\
-	\Rightarrow \sum_{n=0}^{\infty}{ρ^n} = \frac{1}{1-ρ} - 1 = \frac{ρ}{1-ρ}
+	\Rightarrow \sum_{n=1}^{\infty}{ρ^n} = \frac{1}{1-ρ} - 1 = \frac{ρ}{1-ρ}
 	\end{split}
 \end{equation}
 
@@ -232,7 +246,7 @@
 \textbf{(β)} Παρακάτω φαίνονται τα ζητούμενα διαγράμματα. Αυτά είναι τα Σχήματα \ref{fig:util}, \ref{fig:delay}, \ref{fig:requests} και \ref{fig:throughput}.
 
 \begin{figure}[ht]
-	\includegraphics[width=\linewidth] {M-M-1_Util_SrvRate}
+	\includegraphics[width=\linewidth]{M-M-1_Util_SrvRate}
 	\caption{Βαθμός χρησιμοποίησης \foreignlanguage{english}{(utilization)} προς ρυθμό εξυπηρέτησης (μ).}
 	\label{fig:util}
 \end{figure}

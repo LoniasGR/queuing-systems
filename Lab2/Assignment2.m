@@ -1,10 +1,12 @@
 pkg load queueing;
+pkg load statistics;
+
 
 clc;
 clear all;
 close all;
 
-% System M/M/1
+% M/M/1 queue analysis
 
 samples = 51;
 
@@ -115,6 +117,7 @@ disp(avg_customers);
 for i = 1:length(states)
   Prob = 0;
   index = 0;
+  TMax = 50
   for T=0:0.01:50
     index = index + 1;
     Pi = ctmc(transition_matrix,T,initial_state);
@@ -144,9 +147,9 @@ for mu = [1, 5, 20]
   hf = figure(10+j);
   
   for i = 1:length(states)
-    Prob = 0;
+    Prob = [];
     index = 0;
-    for T=0:0.01:50
+    for T=0:0.01:100
       index = index + 1;
       Pi = ctmc(transition_matrix,T,initial_state);
       Prob(index) = Pi(i);
