@@ -115,7 +115,7 @@ disp(avg_customers);
 % step v
 % Transient probabilities for all states
 for i = 1:length(states)
-  Prob = 0;
+  Prob = [];
   index = 0;
   TMax = 50
   for T=0:0.01:50
